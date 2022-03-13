@@ -1,4 +1,4 @@
-from abc import ABC  # 抽象類別helper class
+from abc import ABC
 from abc import abstractmethod
 
 
@@ -7,9 +7,9 @@ class Step(ABC):
         pass
 
     @abstractmethod
-    def process(self, data, inputs):
+    def process(self, data, inputs, utils):
         pass
 
 
-class StepException(Exception):  # 繼承build-in的Exception，在過程中任何一個時間停止會觸發stepexception，然後用try except來捕捉錯誤
+class StepException(Exception):
     pass
