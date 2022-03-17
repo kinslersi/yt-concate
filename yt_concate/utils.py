@@ -30,3 +30,4 @@ class Utils:
     def video_list_file_exist(self, channel_id):
         path = self.get_video_list_filepath(channel_id)
         return os.path.exists(path) and os.path.getsize(path) > 0
+
