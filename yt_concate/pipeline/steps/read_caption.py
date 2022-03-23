@@ -1,22 +1,20 @@
-import os
 import ast
-from pprint import pprint
 
 from .step import Step
-from yt_concate.setting import CAPTIONS_DIR
 
 
 class ReadCaption(Step):
     def process(self, data, inputs, utils):
-        data = {}
-        for caption_file in os.listdir(CAPTIONS_DIR):
-            captions = {}
-            with open(os.path.join(CAPTIONS_DIR, caption_file), "r") as f:
+        for yt in data:
+            if not utils.caption_file_exist(yt):  # 如果下載的文檔沒有的話就會continue到下一個data
+                continue
+
+            with open(yt.caption_filepath, "r") as f:  # 文檔存在就會讀入
+                captions = {}
                 data_file = ast.literal_eval(f.read())
                 for line in data_file:
                     caption = line['text']
                     time = str(line["start"]) + "-->" + str(line["duration"])
                     captions[caption] = time
-                    data[caption_file] = captions
-        pprint(data)
-        return data
+            yt.captions = captions
+        return data  # 接收data傳進來,沒有像get_video_list取得資料,就處理好再傳data出去

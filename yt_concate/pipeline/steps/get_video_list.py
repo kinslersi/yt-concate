@@ -8,7 +8,7 @@ from yt_concate.pipeline.steps.step import Step
 class GetVideoList(Step):
     def process(self, data, inputs, utils):
         channel_id = inputs["channel_id"]
-        if utils.video_list_file_exist(channel_id):  # 如果存在就會讀入檔案
+        if utils.video_list_file_exist(channel_id):  # 如果存在true就會讀入檔案
             print('found existing video list file for channel id', channel_id)
             return self.read_file(utils.get_video_list_filepath(channel_id))
         base_video_url = 'https://www.youtube.com/watch?v='
@@ -31,7 +31,7 @@ class GetVideoList(Step):
                 next_page_token = resp['nextPageToken']
                 url = first_url + '&pageToken={}'.format(next_page_token)
             except KeyError:
-                break
+                continue
         print(video_links)
         self.write_to_file(video_links, utils.get_video_list_filepath(channel_id))  # 到下一個階段前先寫入到檔案裡
         return video_links
@@ -41,9 +41,10 @@ class GetVideoList(Step):
             for url in video_links:
                 f.write(url + "\n")
 
+
     def read_file(self, filepath):
         video_links = []
         with open(filepath, "r") as f:
             for url in f:
-                video_links.append(url.strip())
+                video_links.append(url.strip())  # strip移除字符串头尾指定的字符（默认为空格或换行符)
         return video_links
