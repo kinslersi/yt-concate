@@ -8,12 +8,11 @@ class Search(Step):
         found = []
         for yt in data:
             captions = yt.captions
-            if not captions:  # 跳過沒有字幕的yt物件
+            if not captions:
                 continue
             for caption in captions:
                 if search_word in caption:
-                    time = captions[caption]  # 當初設定captions[time:caption]
-                    f = Found(yt, caption, time)  # 創作出實例
+                    time = captions[caption]
+                    f = Found(yt, caption, time)
                     found.append(f)
-        print(found)
-        return found  # data進來,但重新創造新的一份資料集
+        return found

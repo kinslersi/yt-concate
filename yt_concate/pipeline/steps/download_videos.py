@@ -9,7 +9,7 @@ class DownloadVideos(Step):
         yt_set = set([found.yt for found in data])
         print('video to download', len(yt_set))
         for yt in yt_set:
-            url = yt.url  # found物件身上的yt物件身士的url
+            url = yt.url
             if utils.video_file_exist(yt):
                 print(f"found existing video file:{url},skipping")
                 continue

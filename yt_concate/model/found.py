@@ -9,8 +9,8 @@ class Found:
 
     def __repr__(self):
         content = ":".join([
-            "yt=" + str(self.yt),  # 要將yt物件轉換為str,但沒有定義要怎麼轉換所以出現的是位置,去yt.py新增str&repr
-            "caption=" + str(self.caption),  # 印出yt物件的簡化版
-            "time=" + str(self.time)  # 印出yt物件的簡化版
+            "yt=" + str(self.yt),
+            "caption=" + str(self.caption),
+            "time=" + str(self.time)
         ])
         return "<Found(" + content + ")>"
