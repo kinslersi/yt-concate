@@ -11,11 +11,11 @@ class EditVideo(Step):
             start, end = self.parse_time(found.time)
             video = VideoFileClip(found.yt.video_filepath).subclip(start, end)
             clips.append(video)
-            # if len(clips) >= inputs["limit"]  # 防止記憶體爆掉
+            # if len(clips) >= inputs["limit"]
             #     break
-        final_clip = concatenate_videoclips(clips)  # 清單中累積到20才組合起來
+        final_clip = concatenate_videoclips(clips)
         output_file = utils.output_filepath(inputs["channel_id"], inputs["search_word"])
-        final_clip.write_videofile(output_file, audio_codec='aac')   # 有bug,增加聲音
+        final_clip.write_videofile(output_file, audio_codec='aac')
 
     def parse_time(self, captions_time):
         a, b = captions_time.split("-->")
@@ -28,8 +28,8 @@ class EditVideo(Step):
             hour = math.floor(time / 3600)
             minute = math.floor((time - 3600 * hour) / 60)
             second = (time - 3600 * hour) % 60
-            return hour, minute, second
+            return hour, minute, second  # return tuple
         else:
             minute = math.floor(time / 60)
             second = time % 60
-            return 0, minute, second  # return 出來會是tuple
+            return 0, minute, second  # return tuple
