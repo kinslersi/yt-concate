@@ -1,6 +1,6 @@
 import ast
 
-from .step import Step
+from yt_concate.pipeline.steps.step import Step
 
 
 class ReadCaption(Step):

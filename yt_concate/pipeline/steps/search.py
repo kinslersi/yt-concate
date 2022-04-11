@@ -1,4 +1,4 @@
-from .step import Step
+from yt_concate.pipeline.steps.step import Step
 from yt_concate.model.found import Found
 
 

@@ -1,18 +1,34 @@
-from pytube import YouTube
+import os
+import logging
 
-from .step import Step
+from pytube import YouTube
+from threading import Thread
+from yt_concate.pipeline.steps.step import Step
 from yt_concate.setting import VIDEOS_DIR
 
 
 class DownloadVideos(Step):
     def process(self, data, inputs, utils):
+        logger = logging.getLogger()
         yt_set = set([found.yt for found in data])
-        print('video to download', len(yt_set))
+        logger.info('video to download', len(yt_set))
         for yt in yt_set:
             url = yt.url
             if utils.video_file_exist(yt):
-                print(f"found existing video file:{url},skipping")
+                logger.info(f"found existing video file:{url},skipping")
                 continue
-            print("downloading", url)
-            YouTube(url).streams.first().download(output_path=VIDEOS_DIR, filename=yt.id + ".mp4")
+            logger.info("downloading", url)
+
+            self.process_thread(data)
+            threads = []
+            for i in range(os.cpu_count()):
+                threads.append(Thread(target=self.process_thread))
+            for thread in threads:
+                thread.start()
+            for thread in threads:
+                thread.join()
         return data
+
+    def process_thread(self, data):
+        for yt in data:
+            YouTube(yt.url).streams.first().download(output_path=VIDEOS_DIR, filename=yt.id + ".mp4")

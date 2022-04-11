@@ -1,7 +1,7 @@
 import math
 
 from moviepy.editor import VideoFileClip, concatenate_videoclips
-from .step import Step
+from yt_concate.pipeline.steps.step import Step
 
 
 class EditVideo(Step):
@@ -11,8 +11,8 @@ class EditVideo(Step):
             start, end = self.parse_time(found.time)
             video = VideoFileClip(found.yt.video_filepath).subclip(start, end)
             clips.append(video)
-            # if len(clips) >= inputs["limit"]
-            #     break
+            if len(clips) >= inputs["limit"]:
+                break
         final_clip = concatenate_videoclips(clips)
         output_file = utils.output_filepath(inputs["channel_id"], inputs["search_word"])
         final_clip.write_videofile(output_file, audio_codec='aac')

@@ -14,7 +14,7 @@ class Utils:
         os.makedirs(DOWNLOADS_DIR, exist_ok=True)
         os.makedirs(CAPTIONS_DIR, exist_ok=True)
         os.makedirs(VIDEOS_DIR, exist_ok=True)
-        os.makedirs(OUTPUTS_DIR,exist_ok=True)
+        os.makedirs(OUTPUTS_DIR, exist_ok=True)
 
     def caption_file_exist(self, yt):
         path = yt.caption_filepath

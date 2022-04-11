@@ -2,6 +2,7 @@ certifi==2021.10.8
 chainmap==1.0.3
 chardet==4.0.0
 charset-normalizer==2.0.12
+conda==4.3.16
 decorator==4.4.2
 idna==3.3
 imageio==2.16.1
@@ -10,11 +11,14 @@ moviepy==1.0.3
 numpy==1.22.3
 Pillow==9.0.1
 proglog==0.1.9
+pycosat==0.6.3
 python-dateutil==2.8.2
 python-dotenv==0.19.2
 pytube==12.0.0
 pytz==2021.3
 requests==2.27.1
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
 six==1.16.0
 tqdm==4.63.1
 urllib3==1.26.8
